@@ -63,6 +63,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
       - name: Install dependencies
         run: pnpm install
+      - name: Definir variáveis de ambiente
+        run: echo "NEXT_PUBLIC_BASE_PATH=/blog" >> $GITHUB_ENV
       - name: Build
         run: pnpm run build
       - name: Upload artifact
