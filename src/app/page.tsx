@@ -8,7 +8,7 @@ id: string
 
 export const revalidate = 3600 // invalidate every hour
 
-async function getPosts(): Post[] {
+async function getPosts(): Promise<Post[]> {
   const res = await fetch("https://vandsonfalcao.github.io/blog-content-api");
   const { posts } = await res.json();
 
