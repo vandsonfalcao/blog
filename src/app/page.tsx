@@ -13,14 +13,17 @@ type Post = {
 	date: string;
 };
 
-export default async function Home() {
-	async function getPosts(): Promise<{ posts: Post[]; pagination: Pagination }> {
-		const res = await fetch("https://vandsonfalcao.github.io/blog-content-api");
-		const postsPaginated = await res.json();
-		return postsPaginated;
-	}
+export async function getServerSideProps() {
+  const res = await fetch("https://vandsonfalcao.github.io/blog-content-api");
+  const { posts } = await res.json();
 
-	const { posts } = await getPosts();
+  return { props: { posts } };
+}
+
+type Props = {
+ posts: Post[]
+}
+export default async function Home({ posts }: Props) {
 	return (
 		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
 			<main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
