@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-interface Post {  
-id: string
+interface Post {
+	slug: string
   title: string
   content: string
 }
