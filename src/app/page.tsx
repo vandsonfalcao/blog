@@ -1,39 +1,22 @@
 import Link from "next/link";
 
-export type Pagination = {
-	currentPage: number;
-	totalPages: number;
-	totalPosts: number;
-	hasNextPage: false;
-	hasPrevPage: false;
-};
-	
 interface Post {  
 id: string
   title: string
   content: string
 }
- 
-// Next.js will invalidate the cache when a
-// request comes in, at most once every 60 seconds.
-export const revalidate = 60
- 
-// We'll prerender only the params from `generateStaticParams` at build time.
-// If a request comes in for a path that hasn't been generated,
-// Next.js will server-render the page on-demand.
-export const dynamicParams = false // or false, to 404 on unknown paths
- 
-export async function generateStaticParams() {
+
+export const revalidate = 3600 // invalidate every hour
+
+async function getPosts() {
   const res = await fetch("https://vandsonfalcao.github.io/blog-content-api");
   const { posts } = await res.json();
 
   return posts
 }
 
-type Props = {
- posts: Post[]
-}
-export default async function Home({ posts }: Props) {
+export default async function Home() {
+	const posts = await getPosts()
 	return (
 		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
 			<main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
