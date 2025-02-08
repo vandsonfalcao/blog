@@ -15,9 +15,7 @@ type Post = {
 
 export default async function Home() {
 	async function getPosts(): Promise<{ posts: Post[]; pagination: Pagination }> {
-		const res = await fetch("https://vandsonfalcao.github.io/blog-content-api/", {
-			cache: "no-store",
-		});
+		const res = await fetch("https://vandsonfalcao.github.io/blog-content-api");
 		const postsPaginated = await res.json();
 		return postsPaginated;
 	}

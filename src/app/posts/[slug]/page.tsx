@@ -23,15 +23,13 @@ export default async function Post({ params }: Props) {
 				`https://vandsonfalcao.github.io/blog-content-api/posts/${slug}.json`
 			);
 			const post = await res.json();
-			console.log({ post });
 			return post;
 		} catch (error: unknown) {
 			console.error({ error });
-			throw new Error("fodase");
+			throw new Error("Erro desconhecido");
 		}
 	}
 
-	console.log(params);
 	const slug = (await params).slug;
 	const post = await getPost(slug);
 	return (
