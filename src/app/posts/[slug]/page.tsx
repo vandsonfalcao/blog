@@ -1,14 +1,8 @@
+import type { Post } from "@/types/post";
 import { Markdown } from "./components/Markdown";
 
-export type Post = {
-	slug: string;
-	title: string;
-	date: string;
-	content: string;
-};
-
 export async function generateStaticParams() {
-	const res = await fetch("https://vandsonfalcao.github.io/blog-content-api/slugs/posts.json");
+	const res = await fetch("https://vandsonfalcao.github.io/blog-content-api/slugs.json");
 	const posts = await res.json();
 	return posts;
 }

@@ -1,19 +1,11 @@
+import { Post } from "@/types/post";
 import Link from "next/link";
-
-interface Post {
-	slug: string
-  title: string
-  content: string
-	date: string
-}
 
 export const revalidate = 3600 // invalidate every hour
 
 async function getPosts(): Promise<Post[]> {
-  const res = await fetch("https://vandsonfalcao.github.io/blog-content-api");
-  const { posts } = await res.json();
-
-  return posts
+  const res = await fetch("https://vandsonfalcao.github.io/blog-content-api/");
+  return await res.json();
 }
 
 export default async function Home() {
@@ -27,11 +19,11 @@ export default async function Home() {
 						<div key={post.slug}>
 							<h2>{post.title}</h2>
 							<p>
-								<Link passHref href={`/posts/${post.slug}`}>
-									{post.slug}
-								</Link>{" "}
-								- {post.date}
+								{JSON.stringify(post, null, 2)}
 							</p>
+								<Link passHref href={`/posts/${post.slug}`}>
+									ver
+								</Link>
 						</div>
 					))}
 				</div>
